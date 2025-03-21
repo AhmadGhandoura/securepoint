@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "915130811769",
+    "firebase_url": "https://point-e2901-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "point-e2901",
+    "storage_bucket": "point-e2901.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:915130811769:android:d470452e4f6c8bbcf5dba8",
+        "android_client_info": {
+          "package_name": "com.example.securepoint"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRBbVl97Si0LbPZBDtZXd5Sl1eIwclysI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
