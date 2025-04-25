@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/phoneAuthLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="@color/app_grey">
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter phone number (e.g. +11234567890)"
+        android:inputType="phone"
+        android:textColor="@color/light_lime_green"
+        android:textColorHint="@color/light_lime_green"
+        android:backgroundTint="@color/light_lime_green"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btnSendCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send OTP"
+        android:textColor="@color/light_lime_green"
+        android:background="@drawable/rounded_button_dark"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:id="@+id/etOTP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter OTP"
+        android:inputType="number"
+        android:textColor="@color/light_lime_green"
+        android:textColorHint="@color/light_lime_green"
+        android:backgroundTint="@color/light_lime_green"
+        android:padding="12dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btnVerify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Verify"
+        android:textColor="@color/light_lime_green"
+        android:background="@drawable/rounded_button_dark"/>
+</LinearLayout>

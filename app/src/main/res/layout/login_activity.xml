@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
@@ -10,45 +11,62 @@
     android:gravity="center">
 
     <!-- Email Input -->
+
+    <!-- Password Input -->
+
+    <!-- Login Button -->
+
+    <!-- Sign-up Link -->
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="142dp"
+        android:layout_height="153dp"
+        app:srcCompat="@drawable/logo1" />
+
     <EditText
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="64dp"
         android:fontFamily="@font/zen"
         android:hint="Email"
-
+        android:textColor="@color/light_lime_green"
         android:inputType="textEmailAddress" />
 
-    <!-- Password Input -->
     <EditText
         android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/zen"
-
+        android:textColor="@color/light_lime_green"
         android:hint="Password"
         android:inputType="textPassword" />
 
-    <!-- Login Button -->
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:fontFamily="@font/zen"
-
+        android:layout_marginTop="16dp"
         android:background="@color/light_lime_green"
-        android:layout_marginTop="16dp"/>
+        android:fontFamily="@font/zen"
+        android:text="Login"
+        android:textColor="@color/light_lime_green" />
 
-    <!-- Sign-up Link -->
+    <Button
+        android:id="@+id/btn_phone_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_lime_green"
+        android:text="Login with Phone" />
+
     <TextView
         android:id="@+id/tv_signup"
-        android:fontFamily="@font/zen"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/zen"
+        android:paddingTop="10dp"
         android:text="Don't have an account? Sign up"
-        android:textColor="@android:color/holo_green_dark"
-        android:paddingTop="10dp"/>
+        android:textColor="@android:color/holo_green_dark" />
+
 </LinearLayout>

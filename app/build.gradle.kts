@@ -37,11 +37,16 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding =true
+
     }
 }
 
 
 dependencies {
+    implementation("androidx.navigation:navigation-compose:2.5.3") // ✅ Jetpack Navigation
+    implementation("androidx.compose.ui:ui:1.5.0") // ✅ Compose UI
+    implementation("androidx.compose.material:material:1.5.0") // ✅ Material UI
     implementation( platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -71,4 +76,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-storage")  // Firebase Storage (Optional)
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+    implementation ("androidx.gridlayout:gridlayout:1.0.0") // ✅ add this
+    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+
 }

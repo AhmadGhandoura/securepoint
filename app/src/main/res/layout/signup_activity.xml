@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/app_grey"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="362dp"
+        android:layout_height="594dp"
         android:layout_gravity="center"
         android:layout_margin="20dp"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="20dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="214dp"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="4dp"
+        tools:layout_editor_absoluteY="72dp">
+
 
         <!-- Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+
             android:fontFamily="@font/zen"
             android:text="Create an Account"
             android:textColor="@color/light_lime_green"
@@ -43,7 +46,7 @@
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
-
+            android:textColor="@color/light_lime_green"
             android:layout_height="74dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/zen"
@@ -52,6 +55,7 @@
             android:padding="10dp" />
 
         <!-- Signup Button -->
+
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
@@ -65,14 +69,23 @@
 
         <!-- Login Link -->
         <Button
+            android:id="@+id/btn_phone_auth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_grey"
+            android:onClick="goToPhone"
+            android:fontFamily="@font/zen"
+            android:text="SignUp with Phone" />
+
+        <Button
             android:id="@+id/relogButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/zen"
             android:gravity="center"
+            android:onClick="goToLogin"
             android:paddingTop="10dp"
             android:text="Already have an account? Login"
-            android:onClick="goToLogin"
             android:textColor="@android:color/holo_green_dark" />
     </LinearLayout>
 
