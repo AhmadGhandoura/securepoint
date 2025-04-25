@@ -23,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
         // 🔐 Hide features for guest users
         if (role == "guest") {
             findViewById<LinearLayout>(R.id.cameraButton).visibility = View.GONE
+
             findViewById<LinearLayout>(R.id.sensorsButton).visibility = View.GONE
             findViewById<LinearLayout>(R.id.windowsButton).visibility = View.GONE
             findViewById<LinearLayout>(R.id.doorsButton).visibility = View.GONE

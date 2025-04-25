@@ -9,11 +9,13 @@
     tools:context=".HomeActivity">
 
     <!-- Title -->
+
+    <!-- Role Badge -->
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="72dp"
         android:text="SECUREPOINT"
         android:textColor="@android:color/white"
         android:textSize="26sp"
@@ -22,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Role Badge -->
     <TextView
         android:id="@+id/roleBadge"
         android:layout_width="wrap_content"
