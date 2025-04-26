@@ -103,6 +103,9 @@ class HomeActivity : AppCompatActivity() {
         if (role != "admin") return
         startActivity(Intent(this, WindowsActivity::class.java))
     }
+    fun pdfReport(view: View) {
+        startActivity(Intent(this, PDFReportActivity::class.java))
+    }
 
     // ✅ Accessible by everyone
     fun openDoors(view: View) {
