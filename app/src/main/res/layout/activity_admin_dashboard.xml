@@ -3,31 +3,49 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/app_grey"
-    android:layout_height="match_parent">
+    android:padding="16dp">
 
+    <!-- 🔰 Title -->
+
+    <!-- 🧾 RecyclerView -->
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
         android:text="User Role Manager"
-        android:textSize="20sp"
         android:textColor="@color/light_lime_green"
-
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/light_lime_green"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_manage_nfc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="16dp"/>
+        android:padding="8dp" />
+
+    <!-- 🛂 Manage NFC Button -->
+    <Button
+        android:id="@+id/btn_manage_nfc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="🛂 Manage NFC Tags"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@color/light_lime_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

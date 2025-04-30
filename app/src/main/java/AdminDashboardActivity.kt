@@ -1,5 +1,5 @@
 package com.example.securepoint
-
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +18,10 @@ class AdminDashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminDashboardBinding.inflate(layoutInflater)
+        binding.btnManageNfc.setOnClickListener {
+            startActivity(Intent(this, NfcTagManagerActivity::class.java))
+        }
+
         setContentView(binding.root)
 
         // Initialize Firebase reference

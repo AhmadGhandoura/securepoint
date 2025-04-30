@@ -8,20 +8,21 @@
     android:background="@color/white">
 
     <!-- Title -->
+
+    <!-- Window Status -->
     <TextView
         android:id="@+id/tv_windows_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="104dp"
         android:text="Windows Status"
+        android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Window Status -->
     <TextView
         android:id="@+id/tv_window_status"
         android:layout_width="wrap_content"

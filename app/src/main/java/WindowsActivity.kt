@@ -3,19 +3,45 @@ package com.example.securepoint
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.database.*
 
 class WindowsActivity : AppCompatActivity() {
+
+    private lateinit var windowStatus: TextView
+    private lateinit var refreshButton: Button
+    private lateinit var databaseRef: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.windows_activity)
 
-        val windowStatus = findViewById<TextView>(R.id.tv_window_status)
-        val refreshButton = findViewById<Button>(R.id.btn_refresh_windows)
+        windowStatus = findViewById(R.id.tv_window_status)
+        refreshButton = findViewById(R.id.btn_refresh_windows)
 
+        // 🔗 Reference to Firebase path
+        databaseRef = FirebaseDatabase.getInstance().getReference("door/sensors/window")
+
+        // Load once
+        fetchWindowStatus()
+
+        // Refresh button
         refreshButton.setOnClickListener {
-            // Simulate refreshing window status
-            windowStatus.text = "Windows are currently OPEN" // Example data
+            fetchWindowStatus()
+        }
+    }
+
+    private fun fetchWindowStatus() {
+        databaseRef.get().addOnSuccessListener { snapshot ->
+            val windowValue = (snapshot.getValue(Long::class.java) ?: 0L).toInt()
+            windowStatus.text = if (windowValue == 0) {
+                "🪟 Windows are CLOSED"
+            } else {
+                "🚨 Windows are OPEN"
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to load window status", Toast.LENGTH_SHORT).show()
         }
     }
 }

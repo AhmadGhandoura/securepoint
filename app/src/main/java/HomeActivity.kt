@@ -109,8 +109,11 @@ class HomeActivity : AppCompatActivity() {
 
     // ✅ Accessible by everyone
     fun openDoors(view: View) {
-        startActivity(Intent(this, DoorActivity::class.java))
+        val intent = Intent(this, DoorActivity::class.java)
+        intent.putExtra("userRole", role) // ✅ pass role
+        startActivity(intent)
     }
+
 
     fun openNFC(view: View) {
         startActivity(Intent(this, NFCUnlockActivity::class.java))
@@ -119,4 +122,5 @@ class HomeActivity : AppCompatActivity() {
     fun openNotifications(view: View) {
         startActivity(Intent(this, NotificationActivity::class.java))
     }
+
 }
