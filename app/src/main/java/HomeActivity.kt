@@ -1,5 +1,5 @@
 package com.example.securepoint
-
+import androidx.cardview.widget.CardView
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -22,11 +22,10 @@ class HomeActivity : AppCompatActivity() {
 
         // 🔐 Hide features for guest users
         if (role == "guest") {
-            findViewById<LinearLayout>(R.id.cameraButton).visibility = View.GONE
-
-            findViewById<LinearLayout>(R.id.sensorsButton).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.windowsButton).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.doorsButton).visibility = View.GONE
+            findViewById<CardView>(R.id.cameraButton).visibility = View.GONE
+            findViewById<CardView>(R.id.sensorsButton).visibility = View.GONE
+            findViewById<CardView>(R.id.windowsButton).visibility = View.GONE
+            findViewById<CardView>(R.id.doorsButton).visibility = View.GONE
         }
 
         // 🔖 Set badge text and color
