@@ -11,11 +11,12 @@
     <!-- Title -->
 
     <!-- Role Badge -->
+
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="8dp"
         android:text="SECUREPOINT"
         android:textColor="@android:color/white"
         android:textSize="26sp"
@@ -287,18 +288,33 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
+
     </androidx.gridlayout.widget.GridLayout>
 
+
+
+
     <!-- Admin Panel Container -->
-    <LinearLayout
-        android:id="@+id/adminPanelContainer"
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_generate_pdf_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/grid_layout" />
+        android:text="📄 Generate PDF Report"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:onClick="pdfReport"
+        android:backgroundTint="@color/light_lime_green"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="12dp"
+        app:cornerRadius="16dp"
+    app:iconPadding="25dp"
+    app:iconGravity="textStart"
+    app:layout_constraintTop_toBottomOf="@id/grid_layout"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:layout_marginTop="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

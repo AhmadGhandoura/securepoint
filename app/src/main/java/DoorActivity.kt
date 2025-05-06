@@ -30,10 +30,6 @@ class DoorActivity : AppCompatActivity() {
 
         dbRef = FirebaseDatabase.getInstance().getReference("door")
 
-        // Check if user is admin
-        val role = intent.getStringExtra("userRole") ?: "guest"
-        isAdmin = role == "admin"
-        unlockButton.visibility = if (isAdmin) View.VISIBLE else View.GONE
 
         unlockButton.setOnClickListener {
             triggerRemoteUnlock()

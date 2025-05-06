@@ -25,7 +25,6 @@ class HomeActivity : AppCompatActivity() {
             findViewById<CardView>(R.id.cameraButton).visibility = View.GONE
             findViewById<CardView>(R.id.sensorsButton).visibility = View.GONE
             findViewById<CardView>(R.id.windowsButton).visibility = View.GONE
-            findViewById<CardView>(R.id.doorsButton).visibility = View.GONE
         }
 
         // 🔖 Set badge text and color
@@ -44,7 +43,6 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(Intent(this@HomeActivity, AdminDashboardActivity::class.java))
                 }
             }
-            findViewById<LinearLayout>(R.id.adminPanelContainer).addView(btn)
         }
 
         // 🍔 Setup menu button
@@ -102,9 +100,7 @@ class HomeActivity : AppCompatActivity() {
         if (role != "admin") return
         startActivity(Intent(this, WindowsActivity::class.java))
     }
-    fun pdfReport(view: View) {
-        startActivity(Intent(this, PDFReportActivity::class.java))
-    }
+
 
     // ✅ Accessible by everyone
     fun openDoors(view: View) {
@@ -120,6 +116,9 @@ class HomeActivity : AppCompatActivity() {
 
     fun openNotifications(view: View) {
         startActivity(Intent(this, NotificationActivity::class.java))
+    }
+    fun pdfReport(view: View) {
+        startActivity(Intent(this, PDFReportActivity::class.java))
     }
 
 }
