@@ -7,6 +7,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 
 class HomeActivity : AppCompatActivity() {
@@ -25,6 +26,7 @@ class HomeActivity : AppCompatActivity() {
             findViewById<CardView>(R.id.cameraButton).visibility = View.GONE
             findViewById<CardView>(R.id.sensorsButton).visibility = View.GONE
             findViewById<CardView>(R.id.windowsButton).visibility = View.GONE
+            findViewById<MaterialButton>(R.id.btn_generate_pdf_home).visibility = View.GONE
         }
 
         // 🔖 Set badge text and color
