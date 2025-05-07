@@ -79,5 +79,5 @@ dependencies {
     implementation ("androidx.gridlayout:gridlayout:1.0.0") 
     implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("com.itextpdf:itext7-core:7.2.2") // Free version of iText 7
-
+    implementation ("com.google.firebase:firebase-messaging:23.4.1")
 }

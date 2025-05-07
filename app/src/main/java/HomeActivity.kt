@@ -1,11 +1,9 @@
 package com.example.securepoint
-
-import android.Manifest
+import android.content.pm.PackageManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -21,7 +19,6 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlin.math.abs
 
 class HomeActivity : AppCompatActivity() {
 
@@ -32,12 +29,8 @@ class HomeActivity : AppCompatActivity() {
     private var lastGasAlert = false
     private var lastVibration = false
     private var lastWindow = 0
-
-    private var lastGasAlertTime = 0L
-    private var lastVibrationTime = 0L
-    private var lastWindowTime = 0L
-
-    private val COOLDOWN_MILLIS = 60 * 1000L // 1 minute
+    private var lastMotion = 0
+    private var lastNotifyTime = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,9 +45,10 @@ class HomeActivity : AppCompatActivity() {
             findViewById<MaterialButton>(R.id.btn_generate_pdf_home).visibility = View.GONE
         }
 
-        val badge = findViewById<TextView>(R.id.roleBadge)
-        badge.text = if (role == "admin") "🛡️ Admin" else "🙋 Guest"
-        badge.setBackgroundColor(ContextCompat.getColor(this, R.color.light_lime_green))
+        findViewById<TextView>(R.id.roleBadge).apply {
+            text = if (role == "admin") "🛡️ Admin" else "🙋 Guest"
+            setBackgroundColor(ContextCompat.getColor(this@HomeActivity, R.color.light_lime_green))
+        }
 
         findViewById<ImageButton>(R.id.menu_button).setOnClickListener {
             showPopupMenu(it)
@@ -68,12 +62,12 @@ class HomeActivity : AppCompatActivity() {
 
     private fun checkNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
                     this,
-                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
                     101
                 )
             }
@@ -86,75 +80,77 @@ class HomeActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                "sensor_alerts",
-                "Sensor Alerts",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            channel.description = "Sensor alert channel"
-            channel.enableLights(true)
-            channel.lightColor = Color.RED
-            channel.enableVibration(true)
+                "sensor_alerts", "Sensor Alerts", NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "Sensor alert channel"
+                enableLights(true)
+                lightColor = Color.RED
+                enableVibration(true)
+            }
             notificationManager.createNotificationChannel(channel)
         }
 
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                val now = System.currentTimeMillis()
+                if (now - lastNotifyTime < 4000) return  // ⏳ Cooldown: avoid multiple notifs in <4s
+
                 val gasAlert = snapshot.child("gasAlert").getValue(Boolean::class.java) ?: false
                 val vibration = snapshot.child("vibration").getValue(Boolean::class.java) ?: false
                 val window = snapshot.child("window").getValue(Int::class.java) ?: 0
+                val motion = snapshot.child("motion").getValue(Int::class.java) ?: 0
 
-                val now = System.currentTimeMillis()
-
-                if (gasAlert && (!lastGasAlert || now - lastGasAlertTime > COOLDOWN_MILLIS)) {
+                if (gasAlert && !lastGasAlert) {
                     showSystemNotification("⚠️ Gas Alert", "Dangerous gas detected")
-                    lastGasAlertTime = now
+                    lastNotifyTime = now
                 }
 
-                if (vibration && (!lastVibration || now - lastVibrationTime > COOLDOWN_MILLIS)) {
-                    showSystemNotification("💥 Vibration Detected", "Possible tampering")
-                    lastVibrationTime = now
+                if (vibration && !lastVibration) {
+                    showSystemNotification("💥 Vibration", "Possible tampering")
+                    lastNotifyTime = now
                 }
 
-                if (window == 1 && (lastWindow == 0 || now - lastWindowTime > COOLDOWN_MILLIS)) {
+                if (window == 1 && lastWindow == 0) {
                     showSystemNotification("🚪 Window Open", "A window was opened")
-                    lastWindowTime = now
+                    lastNotifyTime = now
+                }
+
+                if (motion == 1 && lastMotion == 0) {
+                    showSystemNotification("👀 Motion Detected", "Someone's moving!")
+                    lastNotifyTime = now
                 }
 
                 lastGasAlert = gasAlert
                 lastVibration = vibration
                 lastWindow = window
+                lastMotion = motion
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.e("Firebase", "❌ Error: ${error.message}")
+                Log.e("Firebase", "❌ ${error.message}")
             }
         })
     }
 
     private fun showSystemNotification(title: String, message: String) {
         val intent = Intent(this, HomeActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(
-            this, 0, intent, PendingIntent.FLAG_IMMUTABLE
-        )
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
 
-        val notification = NotificationCompat.Builder(this, "sensor_alerts")
+        val builder = NotificationCompat.Builder(this, "sensor_alerts")
             .setSmallIcon(R.drawable.ic_notify)
             .setContentTitle(title)
             .setContentText(message)
+            .setAutoCancel(true)
             .setColor(Color.RED)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setAutoCancel(true)
             .setContentIntent(pendingIntent)
-            .build()
 
-        val id = (System.currentTimeMillis() % 10000).toInt()
-        notificationManager.notify(id, notification)
+        notificationManager.notify((System.currentTimeMillis() % 10000).toInt(), builder.build())
     }
 
     private fun showPopupMenu(anchor: View) {
         val popup = PopupMenu(this, anchor)
         popup.menuInflater.inflate(R.menu.home_menu, popup.menu)
-
         if (role == "guest") {
             popup.menu.findItem(R.id.menu_admin_dashboard).isVisible = false
         }
@@ -162,20 +158,17 @@ class HomeActivity : AppCompatActivity() {
         popup.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.menu_admin_dashboard -> {
-                    startActivity(Intent(this, AdminDashboardActivity::class.java))
-                    true
+                    startActivity(Intent(this, AdminDashboardActivity::class.java)); true
                 }
                 R.id.menu_profile -> {
                     val intent = Intent(this, ProfileActivity::class.java)
                     intent.putExtra("userRole", role)
-                    startActivity(intent)
-                    true
+                    startActivity(intent); true
                 }
                 R.id.menu_logout -> {
                     FirebaseAuth.getInstance().signOut()
                     startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                    true
+                    finish(); true
                 }
                 else -> false
             }
