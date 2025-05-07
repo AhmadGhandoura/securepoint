@@ -20,13 +20,12 @@ class WindowsActivity : AppCompatActivity() {
         windowStatus = findViewById(R.id.tv_window_status)
         refreshButton = findViewById(R.id.btn_refresh_windows)
 
-        // 🔗 Reference to Firebase path
-        databaseRef = FirebaseDatabase.getInstance().getReference("door/sensors/window")
+        // ✅ Corrected path
+        databaseRef = FirebaseDatabase.getInstance().getReference("sensors/window")
 
-        // Load once
+        // Initial fetch
         fetchWindowStatus()
 
-        // Refresh button
         refreshButton.setOnClickListener {
             fetchWindowStatus()
         }
@@ -41,7 +40,7 @@ class WindowsActivity : AppCompatActivity() {
                 "🚨 Windows are OPEN"
             }
         }.addOnFailureListener {
-            Toast.makeText(this, "Failed to load window status", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "❌ Failed to load window status", Toast.LENGTH_SHORT).show()
         }
     }
 }

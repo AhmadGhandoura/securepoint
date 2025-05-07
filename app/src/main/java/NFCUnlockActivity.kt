@@ -1,5 +1,4 @@
 package com.example.securepoint
-
 import android.app.PendingIntent
 import android.content.Intent
 import android.nfc.NfcAdapter
