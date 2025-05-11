@@ -1,4 +1,5 @@
 package com.example.securepoint
+
 import android.content.pm.PackageManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -19,6 +20,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeActivity : AppCompatActivity() {
 
@@ -58,6 +60,24 @@ class HomeActivity : AppCompatActivity() {
             checkNotificationPermission()
             setupRealtimeAlerts()
         }
+
+        // ✅ Subscribe to 'alerts' topic
+        FirebaseMessaging.getInstance().subscribeToTopic("alerts")
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("🔔FCM", "Subscribed to 'alerts' topic")
+                } else {
+                    Log.e("🔔FCM", "Subscription failed", task.exception)
+                }
+            }
+
+        // Optional: Log token (can be removed later)
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                Log.d("📱FCM_TOKEN", "Token: $token")
+            }
+        }
     }
 
     private fun checkNotificationPermission() {
@@ -93,7 +113,7 @@ class HomeActivity : AppCompatActivity() {
         databaseRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val now = System.currentTimeMillis()
-                if (now - lastNotifyTime < 4000) return  // ⏳ Cooldown: avoid multiple notifs in <4s
+                if (now - lastNotifyTime < 4000) return
 
                 val gasAlert = snapshot.child("gasAlert").getValue(Boolean::class.java) ?: false
                 val vibration = snapshot.child("vibration").getValue(Boolean::class.java) ?: false

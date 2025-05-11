@@ -1,5 +1,5 @@
 package com.example.securepoint
-
+import com.google.firebase.messaging.FirebaseMessaging
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat
 import com.google.firebase.database.*
 
 class NotificationActivity : AppCompatActivity() {
+
 
     private lateinit var databaseRef: DatabaseReference
     private lateinit var notificationManager: NotificationManager
@@ -32,6 +33,8 @@ class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.notification_activity)
+
+
 
         listView = findViewById(R.id.lv_notifications)
         adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, alertMessages)
@@ -109,4 +112,5 @@ class NotificationActivity : AppCompatActivity() {
         alertMessages.add(0, log)
         adapter.notifyDataSetChanged()
     }
+
 }
